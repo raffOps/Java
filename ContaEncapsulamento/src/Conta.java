@@ -1,66 +1,49 @@
 
 public class Conta {
-	private int id, agencia;
+	private String nome;
 	private double saldo;
-	String titular;
-
-	Conta(int idAux, int agenciaAux, String titularAux) {
-		this.id = idAux;
-		this.agencia = agenciaAux;
-		this.titular = titularAux;
-		this.saldo = 0;
-	}
-
-	public boolean sacar(double valor) {
-		if (valor > this.saldo) {
-			return false;
-		} else {
-			this.saldo -= valor;
-			return true;
+	
+	public Conta(String nome, double saldo) {
+		this.nome = nome;
+		if (saldo > 0) {
+			this.saldo = saldo;
 		}
 	}
-
+	
+	public Conta() {}
+	
 	public boolean depositar(double valor) {
-		if (valor < 0) {
-			return false;
-		} else {
+		if (valor > 0) {
 			this.saldo += valor;
 			return true;
-		}
-	}
-
-	public boolean transferePara(double valor, Conta outraConta) {
-		if (this.sacar(valor)) {
-			outraConta.depositar(valor);
-			return true;
-		} else {
+		} else
 			return false;
-		}
 	}
-
+	
+	public boolean sacar(double valor) {
+		if ((valor > 0) && (this.saldo > valor)) {
+			this.saldo -= valor;
+			return true;
+		} else 
+			return false;
+	}
+	
+	public String imprimirExtrato() {
+		return "Nome: " + this.nome + "    Saldo: " + this.saldo;
+	}
 	public double getSaldo() {
-		return this.saldo;
+		return saldo;
 	}
 
-	public String getTitular() {
-		return this.titular;
+	public void setSaldo(double saldo) {
+		this.saldo = saldo;
 	}
-
-	public void setTitular(String titular_aux) {
-		this.titular = titular_aux;
+	
+	public String getNome() {
+		return nome;
 	}
-
-	public int getId() {
-		return this.id;
+	
+	public void setNome(String nome) {
+		this.nome = nome;
 	}
-
-	public int getAgencia(){
-		return this.agencia;
-	}
-
-	public String pegaTodosDados() {
-		return "\nTitular: " + this.titular + "\nAgencia: " + this.agencia + "\tId: " + this.id + "\nSaldo: "
-				+ this.saldo;
-	}
-
 }
