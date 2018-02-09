@@ -52,7 +52,7 @@ public class TesteConta {
 	 * @see Conta#getDados()
 	 */
 	private static void mostraConta(Conta conta1) {
-		JOptionPane.showMessageDialog(null, conta1.getDados());
+		JOptionPane.showMessageDialog(null, conta1.toString());
 	}
 
 	/**

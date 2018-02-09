@@ -1,23 +1,14 @@
 
-public class Quadrado implements Figuras2Dimensoes {
+public class Cubo implements Figuras3Dimensoes {
 	
 	private double lado;
-	private static final String formato = "Quadrado";
-	
-	public Quadrado(double lado) {
+	private static final String formato = "Cubo";
+
+	public Cubo(double lado) {
 		if (lado < 0) {
 			throw new IllegalArgumentException("Entrada inválida. Dimensao negativa");
 		}
 		this.lado = lado;
-	}
-
-	public double getLado() {
-		return this.lado;
-	}
-	
-	@Override
-	public double getArea() {
-		return this.lado * this.lado;
 	}
 
 	@Override
@@ -28,5 +19,10 @@ public class Quadrado implements Figuras2Dimensoes {
 	@Override
 	public String getDimensoes() {
 		return "Lado: " + this.lado;
+	}
+
+	@Override
+	public double getVolume() {
+		return Math.pow(this.lado, 3);
 	}
 }

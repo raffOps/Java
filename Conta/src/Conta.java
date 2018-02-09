@@ -1,37 +1,36 @@
 
 public class Conta {
-	private String nome;
+	private final String nome;
 	private double saldo;
 	private static int numeroDeContas = 0;
 	
 	public Conta(String nome, double saldo) {
 		this.nome = nome;
-		if (saldo > 0) {
-			this.saldo = saldo;
-			Conta.numeroDeContas += 1;
-		} else {
-			throw new IllegalArgumentException("Saldo inicial negativo");
+		if (saldo < 0) {
+			throw new IllegalArgumentException("Entrada inválida. Saldo inicial negativo");
 		}
+		this.saldo = saldo;
+		Conta.numeroDeContas += 1;
 	}
 	
 	public void depositar(double valor) {
-		if (valor > 0) {
-			this.saldo += valor;
-		} else
-			throw new IllegalArgumentException("Valor inválido");
+		if (valor < 0) {
+			throw new IllegalArgumentException("Entrada inválida. Valor negativo");
+		}
+		this.saldo += valor;	
 	}
 	
 	public void sacar(double valor) {
 		if (this.saldo < valor) {
-			throw new IllegalArgumentException("Saldo negativo");
-		//} else (valor < 0) {
-			//throw new IllegalArgumentException("Valor inválido");
-		} else {
-			this.saldo -= valor;
+			throw new IllegalArgumentException("Entrada inválida. Saldo menor que o valor");
+		} else if (valor < 0) {
+			throw new IllegalArgumentException("Entrada inválida. Valor negativo");
 		}
+		this.saldo -= valor;
 	}
 	
-	public String getDados() {
+	@Override
+	public String toString() {
 		return "Nome: " + this.nome + "    Saldo: " + this.saldo;
 	}
 	
