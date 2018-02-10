@@ -21,7 +21,7 @@ public class Circulo implements Figuras2Dimensoes {
 
 	@Override
 	public String getFormato() {
-		return this.formato;
+		return Circulo.formato;
 	}
 
 	@Override

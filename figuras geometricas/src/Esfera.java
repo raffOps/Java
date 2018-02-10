@@ -13,7 +13,7 @@ public class Esfera implements Figuras3Dimensoes {
 
 	@Override
 	public String getFormato() {
-		return this.formato;
+		return Esfera.formato;
 	}
 
 	@Override

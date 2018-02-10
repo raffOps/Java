@@ -13,7 +13,7 @@ public class Cubo implements Figuras3Dimensoes {
 
 	@Override
 	public String getFormato() {
-		return this.formato;
+		return Cubo.formato;
 	}
 
 	@Override

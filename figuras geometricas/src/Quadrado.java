@@ -22,7 +22,7 @@ public class Quadrado implements Figuras2Dimensoes {
 
 	@Override
 	public String getFormato() {
-		return this.formato;
+		return Quadrado.formato;
 	}
 
 	@Override

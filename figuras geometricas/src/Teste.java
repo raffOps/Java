@@ -1,50 +1,58 @@
 import javax.swing.JOptionPane;
 
-public class Teste {	
+public class Teste {
+	private static final int QUANTIDADE_DE_FIGURAS = 3;
+	
 	public static void main(String[] args) {
 
-		FiguraGeometrica[] colecao = new FiguraGeometrica[1]; // array de 5 figuras geometricas
-
-		for(FiguraGeometrica figura : colecao) {
+		FiguraGeometrica[] colecaoDeFiguras = new FiguraGeometrica[QUANTIDADE_DE_FIGURAS]; 
+		
+		for(FiguraGeometrica figura : colecaoDeFiguras) {
 			figura = criaFigura();
 		}
 
 		JOptionPane.showMessageDialog(null, "Visualização das figuras criada: ");
 
-		for(FiguraGeometrica figura : colecao) {
-			JOptionPane.showMessageDialog(null, figura.getDimensoes() + figura.getFormato());
+		for(FiguraGeometrica figura : colecaoDeFiguras) {
+			JOptionPane.showMessageDialog(null,figura.getFormato() + " de " + figura.getDimensoes()); // não tá funcionando
 		}
+		
 	}
 
 
 	private static FiguraGeometrica criaFigura() {
-
+		double dimensao = 0;
+		boolean repetir = true;
 		String formato = pegaFormato();
-
+		
+		do {
+			try {
+				dimensao = pegaDimensao() ;
+				repetir = false; // Se chegar nessa linha é porque a exceção não foi levantada, logo o do while pode terminar
+			} catch (NumberFormatException e) {
+				JOptionPane.showMessageDialog(null, "Entrada inválida. Digite um numero positivo seu idiota");
+				repetir = true;
+			}
+		} while(repetir);
+		
 		switch (formato)
 		{
-		case "Quadrado": return new Quadrado(pegaDimensao("lado do quadrado"));
-		case "Circulo" : return new Circulo(pegaDimensao("raio do circulo"));
-		case "Cubo"    : return new Cubo(pegaDimensao("lado do cubo"));
-		case "Esfera"  : return new Esfera(pegaDimensao("raio da esfera"));
+		case "Quadrado": return new Quadrado(dimensao);
+		case "Circulo" : return new Circulo(dimensao);
+		case "Cubo"    : return new Cubo(dimensao);
+		case "Esfera"  : return new Esfera(dimensao);
 		default: return null;
 		}
 	}
 
-	private static double pegaDimensao(String string) {
-
+	private static double pegaDimensao()
+			throws NumberFormatException {
 		String entrada;
 		Double dimensao = null;
 
 		do {
-			entrada = JOptionPane.showInputDialog(null,"Digite o " + string);
-			try {
-				dimensao = Double.parseDouble(entrada);
-			} catch (NumberFormatException e) {
-				JOptionPane.showMessageDialog(null, "Entrada invália");
-				return pegaDimensao(string); // Esse método se torna recursivo se a entrada for um letra. Necssário tirar essa condição o quanto antes
-			}
-
+			entrada = JOptionPane.showInputDialog(null,"Digite a dimensão da figura");
+			dimensao = Double.parseDouble(entrada);
 		} while (dimensao < 0);
 
 		return dimensao;
@@ -56,8 +64,9 @@ public class Teste {
 		String formato;
 
 		do {
-			formato = JOptionPane.showInputDialog(null, "Digite o formato da figura geometrica: ");
-		} while (!(formato.equals("Quadrado") || formato.equals("Cubo") || formato.equals("Circulo") || formato.equals("Esfera")));
+			formato = JOptionPane.showInputDialog(null, "Digite o formato da figura geometrica"
+					+ "\nFormatos suportados: " + FormatosGeometricosSuportados.getFormatosSuportados().toString());
+		} while (!(FormatosGeometricosSuportados.getFormatosSuportados().contains(formato)));
 
 		return formato;
 	}
