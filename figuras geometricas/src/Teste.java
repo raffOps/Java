@@ -1,24 +1,26 @@
+import java.util.ArrayList;
+
 import javax.swing.JOptionPane;
 
 public class Teste {
-	private static final int QUANTIDADE_DE_FIGURAS = 3;
+	
+	private static final int QUANTIDADE_DE_FIGURAS = 1;
 	
 	public static void main(String[] args) {
 
 		FiguraGeometrica[] colecaoDeFiguras = new FiguraGeometrica[QUANTIDADE_DE_FIGURAS]; 
 		
-		for(FiguraGeometrica figura : colecaoDeFiguras) {
-			figura = criaFigura();
+		for(int indice = 0; indice < QUANTIDADE_DE_FIGURAS; indice++) { // Não sei porque mas o for aprimorado não funciona aqui
+			colecaoDeFiguras[indice] = criaFigura();
 		}
 
 		JOptionPane.showMessageDialog(null, "Visualização das figuras criada: ");
 
 		for(FiguraGeometrica figura : colecaoDeFiguras) {
-			JOptionPane.showMessageDialog(null,figura.getFormato() + " de " + figura.getDimensoes()); // não tá funcionando
+				JOptionPane.showMessageDialog(null, figura.getFormato() + " de " + 
+						figura.getDimensoes());
 		}
-		
 	}
-
 
 	private static FiguraGeometrica criaFigura() {
 		double dimensao = 0;
@@ -31,7 +33,6 @@ public class Teste {
 				repetir = false; // Se chegar nessa linha é porque a exceção não foi levantada, logo o do while pode terminar
 			} catch (NumberFormatException e) {
 				JOptionPane.showMessageDialog(null, "Entrada inválida. Digite um numero positivo seu idiota");
-				repetir = true;
 			}
 		} while(repetir);
 		
@@ -45,8 +46,8 @@ public class Teste {
 		}
 	}
 
-	private static double pegaDimensao()
-			throws NumberFormatException {
+	private static double pegaDimensao() throws NumberFormatException {
+		
 		String entrada;
 		Double dimensao = null;
 
@@ -58,15 +59,15 @@ public class Teste {
 		return dimensao;
 	}
 
-
-
 	private static String pegaFormato() {
+
 		String formato;
+		ArrayList<String> listaDeFormatos = FormatosGeometricosSuportados.getFormatosSuportados();
 
 		do {
 			formato = JOptionPane.showInputDialog(null, "Digite o formato da figura geometrica"
-					+ "\nFormatos suportados: " + FormatosGeometricosSuportados.getFormatosSuportados().toString());
-		} while (!(FormatosGeometricosSuportados.getFormatosSuportados().contains(formato)));
+					+ "\nFormatos suportados: " + listaDeFormatos.toString());
+		} while (!(listaDeFormatos.contains(formato)));
 
 		return formato;
 	}
